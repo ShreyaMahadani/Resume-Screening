@@ -1,0 +1,364 @@
+/* ─── Page ───────────────────────────────────────────────── */
+.cp-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: fadeUp 0.3s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+.cp-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.cp-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* ─── Controls ───────────────────────────────────────────── */
+.cp-controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.cp-search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.cp-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.cp-search {
+  width: 100%;
+  padding: 10px 36px 10px 36px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.cp-search::placeholder { color: var(--text-dim); }
+.cp-search:focus { border-color: rgba(108,99,255,0.5); }
+
+.cp-search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 6px;
+  box-shadow: none;
+}
+
+.cp-search-clear:hover {
+  color: var(--text-primary);
+  background: none;
+  box-shadow: none;
+  transform: translateY(-50%);
+}
+
+.cp-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cp-select {
+  padding: 9px 12px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition);
+  appearance: none;
+  padding-right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7a99'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.cp-select:focus { border-color: rgba(108,99,255,0.4); }
+
+/* ─── Grid ───────────────────────────────────────────────── */
+.cp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/* ─── Card ───────────────────────────────────────────────── */
+.cp-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  animation: fadeUp 0.35s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+.cp-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.cp-card:hover {
+  border-color: rgba(108,99,255,0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+}
+
+.cp-card:hover::before { opacity: 1; }
+
+.cp-card--shortlisted {
+  border-color: rgba(0,229,160,0.3);
+  background: rgba(0,229,160,0.03);
+}
+
+.cp-card--shortlisted::before {
+  background: linear-gradient(90deg, var(--success), #00d4ff);
+  opacity: 1;
+}
+
+/* ─── Card top ───────────────────────────────────────────── */
+.cp-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cp-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(108,99,255,0.25);
+}
+
+.cp-card-meta { flex: 1; min-width: 0; }
+
+.cp-card-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.cp-card-badges {
+  display: flex;
+  gap: 6px;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+
+.cp-level-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+
+.cp-level-senior  { background: rgba(255,181,71,0.12); color: var(--warn); }
+.cp-level-mid     { background: rgba(108,99,255,0.12); color: #a89eff; }
+.cp-level-junior  { background: rgba(0,212,255,0.10); color: var(--accent-2); }
+
+.cp-exp-badge {
+  font-size: 10px;
+  color: var(--text-muted);
+  padding: 2px 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+}
+
+/* ─── Verdict ────────────────────────────────────────────── */
+.cp-verdict {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.cp-verdict--strong    { background: rgba(0,229,160,0.12); color: var(--success); }
+.cp-verdict--potential { background: rgba(255,181,71,0.12); color: var(--warn); }
+.cp-verdict--weak      { background: rgba(255,100,100,0.10); color: #ff6464; }
+
+/* ─── Skills ─────────────────────────────────────────────── */
+.cp-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cp-skill-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.cp-skill-tag:hover {
+  background: rgba(108,99,255,0.1);
+  border-color: rgba(108,99,255,0.3);
+  color: var(--text-primary);
+}
+
+.cp-skill-tag--active {
+  background: rgba(108,99,255,0.15);
+  border-color: rgba(108,99,255,0.4);
+  color: #a89eff;
+}
+
+/* ─── Score bars ─────────────────────────────────────────── */
+.cp-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cp-score-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cp-score-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  width: 48px;
+  flex-shrink: 0;
+}
+
+.cp-score-bar-bg {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.cp-score-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.7s cubic-bezier(.4,0,.2,1);
+}
+
+.cp-score-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ─── Card actions ───────────────────────────────────────── */
+.cp-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.cp-btn-shortlist {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+  transition: all var(--transition);
+}
+
+.cp-btn-shortlist:hover {
+  background: rgba(0,229,160,0.08);
+  border-color: rgba(0,229,160,0.3);
+  color: var(--success);
+  box-shadow: none;
+  transform: none;
+}
+
+.cp-btn-shortlist--active {
+  background: rgba(0,229,160,0.1) !important;
+  border-color: rgba(0,229,160,0.35) !important;
+  color: var(--success) !important;
+}
+
+.cp-btn-chat {
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Empty ──────────────────────────────────────────────── */
+.cp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 60px 24px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.cp-empty-icon { font-size: 40px; opacity: 0.4; }
+.cp-empty p    { font-size: 14px; }

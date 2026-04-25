@@ -1,0 +1,17 @@
+[
+  { "name": "Rahul", "skills": ["Python", "Django", "SQL"], "experience": 2 },
+  { "name": "Anjali", "skills": ["Python", "Flask"], "experience": 3 },
+  { "name": "Amit", "skills": ["Java", "Spring"], "experience": 4 },
+  { "name": "Sneha", "skills": ["Python", "Django"], "experience": 1 },
+  { "name": "Karan", "skills": ["Python", "SQL"], "experience": 2 },
+  { "name": "Pooja", "skills": ["Django", "SQL"], "experience": 3 },
+  { "name": "Rohit", "skills": ["Python", "Django", "React"], "experience": 4 },
+  { "name": "Neha", "skills": ["Python", "Flask", "SQL"], "experience": 2 },
+  { "name": "Vikas", "skills": ["JavaScript", "React"], "experience": 2 },
+  { "name": "Meena", "skills": ["Python", "Django", "SQL"], "experience": 5 },
+  { "name": "Arjun", "skills": ["Python"], "experience": 1 },
+  { "name": "Divya", "skills": ["Python", "SQL"], "experience": 3 },
+  { "name": "Sahil", "skills": ["Django", "React"], "experience": 2 },
+  { "name": "Isha", "skills": ["Python", "Django", "SQL"], "experience": 2 },
+  { "name": "Manish", "skills": ["Python", "Flask", "Django"], "experience": 3 }
+]
