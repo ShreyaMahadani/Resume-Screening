@@ -2,17 +2,35 @@ import React, { useState } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
 
+import { useAuth } from "./context/AuthContext";
+import LoginPage from "./pages/LoginPage";
+import SignOutModal from "./components/SignOutModal";
+
 import JDInput from "./components/JDInput";
 import ResultsTable from "./components/ResultsTable";
 import ChatBox from "./components/ChatBox";
 import CandidatesPage from "./components/CandidatesPage";
 import AnalyticsPage from "./components/AnalyticsPage";
+import JobBoardsPage from "./components/JobBoardsPage";
+import SettingsPage from "./components/SettingsPage";
+
 import "./App.css";
 
 function App() {
+  const { user } = useAuth();
+
+  // ── If not logged in, show login page ──
+  if (!user) return <LoginPage />;
+
+  return <Dashboard />;
+}
+
+function Dashboard() {
+  const { user } = useAuth();
   const [candidates, setCandidates] = useState([]);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [activeNav, setActiveNav] = useState("Dashboard");
+  const [showSignOut, setShowSignOut] = useState(false);
 
   const handleJDSubmit = async (jd) => {
     try {
@@ -65,11 +83,11 @@ function App() {
   ];
 
   const PAGE_TITLES = {
-    Dashboard:  { h: " Talent Dashboard",  sub: " candidate screening & shortlisting" },
-    Candidates: { h: "◈ Candidates",          sub: `${candidates.length} candidates loaded` },
-    Analytics:  { h: "◇ Analytics",           sub: "Data-driven insights from your candidate pool" },
-    "Job Boards":{ h: "⊕ Job Boards",         sub: "Coming soon" },
-    Settings:   { h: "⚙ Settings",            sub: "Coming soon" },
+    Dashboard:   { h: "🚀 Talent Dashboard",   sub: "AI-powered candidate screening & shortlisting" },
+    Candidates:  { h: "◈ Candidates",           sub: `${candidates.length} candidates loaded` },
+    Analytics:   { h: "◇ Analytics",            sub: "Data-driven insights from your candidate pool" },
+    "Job Boards":{ h: "⊕ Job Boards",           sub: "Manage open roles and match them to your candidate pool" },
+    Settings:    { h: "⚙ Settings",             sub: "Manage your account and application preferences" },
   };
 
   return (
@@ -80,7 +98,9 @@ function App() {
           <div className="logo-icon">⬡</div>
           <h2>AI Scout</h2>
         </div>
+
         <span className="sidebar-section-label">Navigation</span>
+
         {navItems.map((item) => (
           <div
             key={item.label}
@@ -99,14 +119,27 @@ function App() {
                 Live
               </span>
             )}
+            {item.label === "Job Boards" && (
+              <span style={{ marginLeft: "auto", background: "rgba(0,212,255,0.1)", color: "#00d4ff", fontSize: "10px", fontWeight: 700, padding: "1px 7px", borderRadius: "20px" }}>
+                5
+              </span>
+            )}
           </div>
         ))}
-        <div className="sidebar-footer">
-          <div className="avatar">HR</div>
+
+        {/* ── User footer with sign out ── */}
+        <div
+          className="sidebar-footer"
+          style={{ cursor: "pointer" }}
+          onClick={() => setShowSignOut(true)}
+          title="Click to sign out"
+        >
+          <div className="avatar">{user.avatar}</div>
           <div className="user-info">
-            <div className="user-name">HR Manager</div>
-            <div className="user-role">Admin</div>
+            <div className="user-name">{user.name}</div>
+            <div className="user-role">{user.role}</div>
           </div>
+          <span style={{ fontSize: "14px", color: "#3a4560", marginLeft: "auto" }}>→</span>
         </div>
       </div>
 
@@ -125,6 +158,14 @@ function App() {
                 <button className="btn-ghost" onClick={downloadPDF}>⬇ PDF</button>
               </div>
             )}
+            {/* Topbar sign out button */}
+            <button
+              className="btn-outline"
+              style={{ fontSize: "12px", padding: "7px 14px" }}
+              onClick={() => setShowSignOut(true)}
+            >
+              Sign Out
+            </button>
           </div>
         </div>
 
@@ -189,16 +230,19 @@ function App() {
             )
           )}
 
-          {/* PLACEHOLDER PAGES */}
-          {["Job Boards", "Settings"].includes(activeNav) && (
-            <div className="card" style={{ textAlign: "center", padding: "60px 24px" }}>
-              <div style={{ fontSize: "40px", opacity: 0.3 }}>🚧</div>
-              <p style={{ color: "var(--text-muted)", marginTop: "12px" }}>{activeNav} — coming soon.</p>
-            </div>
+          {/* JOB BOARDS */}
+          {activeNav === "Job Boards" && (
+            <JobBoardsPage candidates={candidates} />
           )}
+
+          {/* SETTINGS */}
+          {activeNav === "Settings" && <SettingsPage />}
 
         </div>
       </div>
+
+      {/* ── Sign out modal ── */}
+      {showSignOut && <SignOutModal onClose={() => setShowSignOut(false)} />}
     </div>
   );
 }
